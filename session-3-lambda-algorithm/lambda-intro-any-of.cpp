@@ -2,6 +2,7 @@
  */
 #include <iostream>
 #include <vector>
+#include "benchmark.h"
 
 bool has_zero (const std::vector<int> & vec);
 
@@ -11,6 +12,12 @@ int main () {
 	std::cout << std::boolalpha;
 	std::cout << "with_zero: " << has_zero (with_zero) << "\n";
 	std::cout << "no_zero: " << has_zero (no_zero) << "\n";
+
+	// Small benchmark
+	std::vector<int> all_ones (10000, 1);
+	bool r = false;
+	auto s = benchmark_function ([&all_ones, &r] () { r = has_zero (all_ones); });
+	std::cout << "bench: " << s << " (r=" << r << ")\n";
 	return 0;
 }
 
@@ -64,7 +71,7 @@ bool is_zero (int i) {
 	return i == 0;
 }
 bool has_zero (const std::vector<int> & vec) {
-	return std::any_of (vec.begin (), vec.end (), is_zero);
+	return std::any_of (vec.begin (), vec.end (), &is_zero);
 }
 #endif
 
