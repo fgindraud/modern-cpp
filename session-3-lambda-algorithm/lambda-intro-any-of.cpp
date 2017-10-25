@@ -1,18 +1,3 @@
-#!/usr/bin/env bash
-#if 0
-tmp_cpp_file=$(mktemp "$0.XXXXX")
-tmp_exe_file=$(mktemp "$0.out.XXXXX")
-function cleanup {
-	rm -f "$tmp_cpp_file" "$tmp_exe_file"
-}
-trap cleanup EXIT
-tail -n +2 "$0" > "$tmp_cpp_file"
-if "${CXX:-g++}" -x c++ $CXXFLAGS -o "$tmp_exe_file" "$tmp_cpp_file" "$@"; then
-	"$tmp_exe_file"
-fi
-exit
-#endif
-
 /* Exemple: test if a vector<int> contains a 0
  */
 #include <iostream>
