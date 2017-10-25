@@ -1,9 +1,9 @@
-/* Exemple: test if a vector<int> contains a 0
- */
+#include "benchmark.h"
 #include <iostream>
 #include <vector>
-#include "benchmark.h"
 
+/* Exemple: test if a vector<int> contains a 0.
+ */
 bool has_zero (const std::vector<int> & vec);
 
 int main () {
@@ -16,7 +16,7 @@ int main () {
 	// Small benchmark
 	std::vector<int> all_ones (10000, 1);
 	bool r = false;
-	auto s = benchmark_function ([&all_ones, &r] () { r = has_zero (all_ones); });
+	auto s = benchmark_function ([&all_ones, &r]() { r = has_zero (all_ones); });
 	std::cout << "bench: " << s << " (r=" << r << ")\n";
 	return 0;
 }
@@ -75,14 +75,19 @@ bool has_zero (const std::vector<int> & vec) {
 }
 #endif
 
-#ifdef ANY_OF_LAMBDA
+// Syntax:
+auto lambda_value = [/* state, see closure.cpp */](/* arguments */) { /* body */ };
+auto lv_without_comments = []() {};
+auto lv_argument_less_shortened = [] {};
+
+#ifdef LAMBDA
 // C++11 any_of with temporary lambda
 bool has_zero (const std::vector<int> & vec) {
 	return std::any_of (vec.begin (), vec.end (), [](int i) { return i == 0; });
 }
 #endif
 
-#ifdef ANY_OF_STORED_LAMBDA
+#ifdef STORED_LAMBDA
 // C++11 any_of with stored lambda
 bool has_zero (const std::vector<int> & vec) {
 	auto is_zero = [](int i) { return i == 0; };
@@ -90,12 +95,39 @@ bool has_zero (const std::vector<int> & vec) {
 }
 #endif
 
+#ifdef LAMBDA_REF
+// C++11 any_of with lambda taking i by reference
+bool has_zero (const std::vector<int> & vec) {
+	auto is_zero = [](const int & i) { return i == 0; };
+	return std::any_of (vec.begin (), vec.end (), is_zero);
+}
+// More useful for complex types:
+#include <string>
+bool has_empty_string (const std::vector<std::string> & vec) {
+	return std::any_of (vec.begin (), vec.end (), [](const std::string & s) { return s.empty (); });
+}
+#endif
+
+#ifdef AUTO_LAMBDA
+// C++14 ! auto is allowed in lambda arguments
+auto is_zero = [](auto num) { return num == 0; };
+
+bool has_zero (const std::vector<int> & vec) {
+	return std::any_of (vec.begin (), vec.end (), is_zero);
+}
+bool has_zero (const std::vector<float> & vec) {
+	return std::any_of (vec.begin (), vec.end (), is_zero);
+}
+
+// Equivalent to declaring templates functions:
+template <typename T> bool is_zero_template (T num) {
+	return num == 0;
+}
+#endif
+
 /* TODO:
- * - add Phase 1 / 2 /... ifdefs
  * - more algorithm : foreach, find_if
- * - closure (is_int (n) ?)
- * - closure by ref, value, this
+ * - return type specification (multi return statement clash)
  * - store / transmit lambdas (std::function, function pointer for stateless, Callable &&)
- *
- * Advanced: functor analogy ? Auto lambda args of c++14 ?
+ * Advanced: functor analogy ?
  */
