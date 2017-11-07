@@ -15,14 +15,21 @@ int user_int () {
 	return i;
 }
 
-struct Test {
-	std::vector<int> vec;
-	std::vector<int> filter_ints (std::vector<int> ints_to_test) const;
-};
-
 int main () {
 	std::vector<int> vec{0, 1, 2, 3, 4, 5, 6};
 	std::cout << std::boolalpha;
+
+	// print_vec: print elements of a vector<int>
+	// Defined as a lambda which returns void (no return statement).
+	auto print_vec = [](const std::vector<int> & v) {
+		// Using std::for_each from algorithm
+		std::for_each (v.begin (), v.end (), [](int i) { std::cout << i << " "; });
+		// Note that global variables can be accessed in the lambda (std::cout is global)
+	};
+
+	std::cout << "Vec: ";
+	print_vec (vec);
+	std::cout << "\n";
 
 #ifdef STATELESS
 	// Stateless lambda
@@ -102,41 +109,51 @@ int main () {
 	std::cout << "vec_has_int (42) = " << vec_has_int (42) << "\n";
 #endif
 
-#ifdef FUNCTIONAL
-	// TODO lambda returning lambda ?
-#endif
-
 #ifdef THIS_STATE
-	// print_vec: print elements of a vector<int>
-	// Defined as a lambda which returns void (no return statement).
-	auto print_vec = [](const std::vector<int> & v) {
-		// Using std::for_each from algorithm
-		std::for_each (v.begin (), v.end (), [](int i) { std::cout << i << " "; });
+	struct IntTester {
+		int i;
+		bool vec_has_int (const std::vector<int> & vec) const {
+			return std::any_of (vec.begin (), vec.end (), [this](int k) { return i == k; });
+		}
 	};
 
-	// List initialisation of struct
-	Test test_value{vec};
-	auto ints_present_in_vec = test_value.filter_ints ({0, 42, 4});
-	print_vec (ints_present_in_vec);
-	std::cout << "\n";
+	IntTester tester{4};
+	std::cout << "tester.vec_has_int " << tester.i << ": " << tester.vec_has_int (vec) << "\n";
+	tester.i = 42;
+	std::cout << "tester.vec_has_int " << tester.i << ": " << tester.vec_has_int (vec) << "\n";
 #endif
 
-	// TODO glob capture modes ? dangerous
-	return 0;
-}
-
-std::vector<int> Test::filter_ints (std::vector<int> ints_to_test) const {
-	// Define vec_has_not_int (i) -> !vec_has_int (i)
-	auto vec_has_not_int = [/* not &vec */ this](int i) {
-		return std::all_of (vec.begin (), vec.end (), [i](int j) { return i != j; });
+#ifdef FUNCTIONAL
+	// A lambda can return a lambda
+	auto vec_has_int_factory = [](int tested_int) {
+		return [tested_int](const std::vector<int> & vec) {
+			return std::any_of (vec.begin (), vec.end (),
+			                    [tested_int](int i) { return i == tested_int; });
+		};
 	};
 
-	// Instead of building a new vector with ints found in vec, we remove ints not found.
-	auto new_end_point = std::remove_if (ints_to_test.begin (), ints_to_test.end (), vec_has_not_int);
-	// std::remove_if moves all "removed" values to the end of the vector (swaps)
-	// it returns the new "end" iterator
-	// we must call vector<int>::erase to update the
-	ints_to_test.erase (new_end_point, ints_to_test.end ());
+	auto vec_has_0 = vec_has_int_factory (0);
+	auto vec_has_42 = vec_has_int_factory (42);
+	std::cout << "vec_has_" << 0 << ": " << vec_has_0 (vec) << "\n";
+	std::cout << "vec_has_" << 42 << ": " << vec_has_42 (vec) << "\n";
+#endif
 
-	return ints_to_test;
+#ifdef AUTO_STATE
+	const int a = 42;
+	const int b = -333;
+	const int c = 55;
+
+	// Define a function using a lot of values
+	auto f = [a, b, c](int & i) { i = ((a * i) + b) * c; };
+	// auto f = [&](int & i) { i = ((a * i) + b) * c; }; // Take all external vars by reference
+
+	std::for_each (vec.begin (), vec.end (), f);
+	std::cout << "Vec f: ";
+	print_vec (vec);
+	std::cout << "\n";
+
+	// '=' captures all by copy, EXCEPT class members ! dangerous...
+	// auto f = [=](int & i) { i = ((a * i) + b) * c; };
+#endif
+	return 0;
 }

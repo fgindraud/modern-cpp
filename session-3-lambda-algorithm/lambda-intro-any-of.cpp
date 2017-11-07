@@ -106,6 +106,10 @@ bool has_zero (const std::vector<int> & vec) {
 bool has_empty_string (const std::vector<std::string> & vec) {
 	return std::any_of (vec.begin (), vec.end (), [](const std::string & s) { return s.empty (); });
 }
+// Mutable refs are allowed too:
+void multiply_by_2 (std::vector<int> & vec) {
+	std::for_each (vec.begin (), vec.end (), [](int & i) { i *= 2; });
+}
 #endif
 
 #ifdef AUTO_LAMBDA
@@ -125,9 +129,12 @@ template <typename T> bool is_zero_template (T num) {
 }
 #endif
 
-/* TODO:
- * - more algorithm : foreach, find_if
- * - return type specification (multi return statement clash)
- * - store / transmit lambdas (std::function, function pointer for stateless, Callable &&)
- * Advanced: functor analogy ?
- */
+// Return type can be specified (important when deduction fails, like below)
+auto f = [](int i, float f) -> float {
+	if (i < f)
+		return i;
+	else
+		return f;
+};
+
+// C++14: also variadic lambdas
