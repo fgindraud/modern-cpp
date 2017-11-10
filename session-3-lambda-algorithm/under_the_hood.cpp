@@ -53,3 +53,37 @@ struct Positive {
 	template <typename T> bool operator() (const T & t) const { return t > 0; }
 };
 #endif
+
+/* std::function<bool(int)>
+ * The complete std::function is templatized to support all types.
+ * It also has some optimisations for space efficiency and speed.
+ * However the basic idea is as follows:
+ */
+struct IntPredicateStdFunction {
+	// Virtual base class for « bool (int i) » function interface
+	struct Base {
+		virtual ~Base () = default;
+		virtual bool call (int i) const = 0;
+	};
+
+	// Wraps any valid « bool predicate (int i) » as a class derived from Base
+	template <typename Predicate> struct Wrapper : public Base {
+		Predicate predicate;
+		bool call (int i) const override final { return predicate (i); }
+	};
+
+	// Store pointer to dynamically allocated derived class
+	// std::function hides the pointer interface
+	Base * base;
+
+	// Create and delete allocated derived class instance.
+	template <typename Predicate>
+	IntPredicateStdFunction (Predicate predicate) : base (new Wrapper<Predicate>{predicate}) {}
+
+	~IntPredicateStdFunction () { delete base; }
+
+	// Forward operator() to the derived class with a virtual call.
+	bool operator () (int i) const {
+		return base->call (i);
+	}
+};
