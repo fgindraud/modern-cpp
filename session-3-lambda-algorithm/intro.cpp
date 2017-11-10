@@ -14,9 +14,9 @@ int main () {
 	std::cout << "no_zero: " << has_zero (no_zero) << "\n";
 
 	// Small benchmark
-	std::vector<int> all_ones (10000, 1);
+	std::vector<int> non_zero = make_non_zero_random_vector (10000);
 	bool r = false;
-	auto s = benchmark_function ([&all_ones, &r]() { r = has_zero (all_ones); });
+	auto s = benchmark_function ([&non_zero, &r]() { r = has_zero (non_zero); });
 	std::cout << "bench: " << s << " (r=" << r << ")\n";
 	return 0;
 }

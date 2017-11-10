@@ -1,7 +1,7 @@
 #include "benchmark.h"
 #include <iostream>
 
-// How to store lambdas, and how have lambda function arguments
+// How to have lambda function arguments
 // AKA write your own <algorithm> !
 
 #include <vector>
@@ -24,7 +24,7 @@ bool my_any_of (const std::vector<int> & v, std::function<bool(int)> predicate) 
 			return true;
 	return false;
 }
-// Supports most lambdas, but costly
+// Supports most lambdas, but costly : virtual class and malloc internally
 #endif
 
 #ifdef TEMPLATE
@@ -34,7 +34,7 @@ template <typename Predicate> bool my_any_of (const std::vector<int> & v, Predic
 			return true;
 	return false;
 }
-// Supports most lambdas, but costly
+// Supports all lambdas, but template with all template caveats (header only, etc)
 #endif
 
 int main () {
@@ -47,16 +47,14 @@ int main () {
 
 	// Stateful
 	int k = 42;
-	std::cout << "my_any_of (is_k) = " << my_any_of (vec, [k](int i) { return i == k; }) << "\n";
+	// std::cout << "my_any_of (is_k) = " << my_any_of (vec, [k](int i) { return i == k; }) << "\n";
 
 	// Small benchmark
-	std::vector<int> all_ones (10000, 1);
+	std::vector<int> non_zero = make_non_zero_random_vector (10000);
 	bool r = false;
 	auto s = benchmark_function (
-	    [&all_ones, &r]() { r = my_any_of (all_ones, [](int i) { return i == 0; }); });
+	    [&non_zero, &r]() { r = my_any_of (non_zero, [](int i) { return i == 0; }); });
 	std::cout << "bench: " << s << " (r=" << r << ")\n";
 
 	return 0;
 }
-
-// TODO storage for std::function. Fix minibench with volatile
