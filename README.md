@@ -2,6 +2,8 @@
 Resources for small presentations of modern c++ features
 
 ## Session 1
+[Link to session page](session-2-misc/intro.md).
+
 ## Session 2
 [Link to session page](session-2-misc/info.md).
 
