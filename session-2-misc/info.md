@@ -7,3 +7,5 @@ Keywords used to ensure that a method correctly overwrites a virtual method of a
 
 Example file: [override_final.cpp](override_final.cpp)
 
+### using syntax for typedef
+An improved syntax is available for typedef statements: [using syntax](typedef.cpp).

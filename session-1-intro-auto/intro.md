@@ -21,6 +21,7 @@ Lots of new features:
 	* hash maps / sets : `std::unordered_map<K, V>` and `std::unordered_set<T>`
 	* Random number generation
 	* `throw(...)` function specifications replaced by `noexcept`
+	* `using` syntax
 
 Not discussed here, but interesting to know it exists:
 * Variadic templates
