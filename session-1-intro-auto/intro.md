@@ -25,9 +25,8 @@ Lots of new features:
 Not discussed here, but interesting to know it exists:
 * Variadic templates
 * Tuple: generalised `std::pair`
-* Threading: `thread`, `mutex`, `thread_local`
+* Threading: `thread`, `mutex`, `thread_local`, atomics
 * Move semantics: let APIs detect _temporary objects_ and act differently (memory reuse, etc)
-* Atomics: proper semantics for 
 * Constexpr: perform computations at compile time
 
 ### C++14
@@ -71,7 +70,20 @@ Compilers with the experimental equivalents (`-std=c++0x` and `-std=c++1y`) are 
 
 ## Support in common distributions
 
-TODO
+Based on GCC / G++ version as most people use them by default.
+If you use clang on Linux you sually know what you are doing =).
+This only lists distribution versions which are still supported (for example Ubuntu 12.04 precise is not supported anymore, and thus not included).
+
+Ubuntu:
+* C++11: >= 14.04 LTS (Trusty)
+* C++14: >= 16.04 LTS (Xenial)
+
+Debian:
+* C++11: >= jessie (oldstable)
+* C++14: >= stretch (stable)
+
+Fedora:
+* C++11 & C++14: >= 25
 
 ## Auto (type deduction)
 
