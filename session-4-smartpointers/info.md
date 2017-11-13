@@ -12,7 +12,14 @@ Unique pointers, (`std::unique_ptr<T>`) are very lightweight objects that:
 * cannot be copied;
 * free the memory when they are destroyed.
 
-TODO: principe, perf
+A unique pointer means "I am the only one responsible for managing this piece of memory".
+Normal pointers can be created from a unique pointer but should never be freed.
+
+Compared to a normal pointer, `std::unique_ptr<T>` has very little overhead (in particular, **no overhead on dereferencing**). [Details](https://stackoverflow.com/questions/22295665/how-much-is-the-overhead-of-smart-pointers-compared-to-normal-pointers-in-c).
+
+Motivating example: [motiv-unique.cpp](motiv-unique.cpp)
+
+Minimal working example: [unique_ptr.cpp](unique_ptr.cpp)
 
 
 ## Shared pointers
