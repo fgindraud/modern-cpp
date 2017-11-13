@@ -2,7 +2,7 @@
 Resources for small presentations of modern c++ features
 
 ## Session 1
-[Link to session page](session-2-misc/intro.md).
+[Link to session page](session-1-intro-auto/intro.md).
 
 ## Session 2
 [Link to session page](session-2-misc/info.md).
@@ -11,3 +11,4 @@ Resources for small presentations of modern c++ features
 [Link to session page](session-3-lambda-algorithm/info.md).
 
 ## Session 4
+[Link to session page](session-4-smartpointers/info.md).
