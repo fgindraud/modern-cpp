@@ -1,24 +1,27 @@
 #include <iostream>
+#include <memory>
 
 class IntList {
     int value;
-    IntList* rest;
+    // IntList* rest;
+    std::unique_ptr<IntList> rest;
 
   public:
-    IntList(int value, IntList* rest = nullptr) : value(value), rest(rest) {}
+    IntList(int value) : value(value) {}
+    IntList(int value, std::unique_ptr<IntList>& rest) : value(value), rest(std::move(rest)) {}
 
     void insert(int new_value) {
-        rest = new IntList(value, rest);
+        rest = std::unique_ptr<IntList>(new IntList(value, rest));
         value = new_value;
     }
 
     int get() { return value; }
 
-    IntList* next() { return rest; }
+    IntList* next() { return rest.get(); }
 
-    ~IntList() {
-        delete rest;
-    }
+    // ~IntList() {
+    //     delete rest;
+    // }
 };
 
 int main() {
