@@ -7,7 +7,7 @@ The two most useful types of smart pointers are **unique pointers** and **shared
 
 ## Unique pointers
 
-Unique pointers, (`std::unique_ptr<T>`) are very lightweight objects that:
+Unique pointers, ([`std::unique_ptr<T>`](http://en.cppreference.com/w/cpp/memory/unique_ptr)) are very lightweight objects that:
 * encapsulate a pointer;
 * cannot be copied;
 * free the memory when they are destroyed.
