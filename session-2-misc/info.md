@@ -30,6 +30,8 @@ New pointer literal that denotes an unitialized or invalid pointer.
 Should be used instead of `0` or `NULL`.
 `nullptr` is a lot safer and helps avoiding weird typing bugs.
 
+Example file: [nullptr.cpp](nullptr.cpp)
+
 ### `using` syntax for typedef
 An improved syntax is available for typedef statements: [typedef.cpp](typedef.cpp).
 

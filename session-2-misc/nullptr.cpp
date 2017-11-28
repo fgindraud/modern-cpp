@@ -2,18 +2,18 @@
 
 using namespace std;
 
-void f(int*) {
-    cout << "char pointer\n";
-}
+void f(int*) { cout << "int array\n"; }
 
-void f(int) {
-    cout << "int\n";
-}
+void f(long) { cout << "long\n"; }
 
+void f(int) { cout << "int\n"; }
 
 int main() {
     int i = 12;
+    int* table = new int[7];
+
     f(i);
-    // f(NULL);
-    f(nullptr);
+    f(table);
+    f(NULL);
+    // f(nullptr);
 }
