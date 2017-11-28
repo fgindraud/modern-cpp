@@ -22,6 +22,9 @@ Keywords used to ensure a specific member function is present in its default ver
 This is particularly useful when dealing with multiple constructors.
 
 ### `nullptr`
+New pointer literal that denotes an unitialized or invalid pointer.
+Should be used instead of `0` or `NULL`.
+`nullptr` is a lot safer and helps avoiding weird typing bugs.
 
 ### `using` syntax for typedef
 An improved syntax is available for typedef statements: [typedef.cpp](typedef.cpp).

@@ -1,0 +1,28 @@
+#include <iostream>
+#include <map>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    // before C++11
+    // vector<int> v;
+    // v.push_back(1);
+    // v.push_back(4);
+    // v.push_back(11);
+    // v.push_back(7);
+
+    vector<int> v {1, 4, 11, 12, 3, 4, 5, 1, 7, 23, 12};
+
+    for (size_t i = 0; i < v.size(); i++) {
+        cout << v[i] << ' ';
+    }
+    cout << '\n';
+
+    // map<int, string> m = {{2, "aa"}, {5, "youpi"}, {98, "youpla"}};
+
+    // for (auto it = m.begin(); it != m.end(); it++) {
+    //     cout << it->first << "/" << it->second << "  ";
+    // }
+    // cout << '\n';
+}
