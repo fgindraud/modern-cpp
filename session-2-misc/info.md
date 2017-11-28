@@ -6,6 +6,8 @@
 New syntax to initialize objects using curly braces.
 It is really useful to initialize data structures such as vectors with explicit data.
 
+Example file: [init_list.cpp](init_list.cpp)
+
 ### Range-based `for`
 C++11 introduced a new syntax to go through the elements of a data structure using a for loop.
 This new syntax is a lot shorter, especially combined with the use of auto.
@@ -20,6 +22,8 @@ Example file: [override_final.cpp](override_final.cpp)
 ### `default` / `delete`
 Keywords used to ensure a specific member function is present in its default version (with `default`) or forbidden (with `delete`).
 This is particularly useful when dealing with multiple constructors.
+
+Example file: [default_delete.cpp](default_delete.cpp)
 
 ### `nullptr`
 New pointer literal that denotes an unitialized or invalid pointer.
