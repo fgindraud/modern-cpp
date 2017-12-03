@@ -41,6 +41,10 @@ An improved syntax is available for typedef statements: [typedef.cpp](typedef.cp
 
 ## Standard library
 
+### Hash tables
+C++11 added `std::unordered_set` and `std::unordered_map`, hash table variants of `std::set` and `std::map`.
+Basic map/set API is similar. Small example file: [hash_table.cpp](hash_table.cpp)
+
 ### Sampling from distributions
 
 ### Regexp
