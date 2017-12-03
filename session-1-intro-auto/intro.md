@@ -88,4 +88,9 @@ Fedora:
 
 ## Auto (type deduction)
 
-TODO
+Introduction with motivation: [auto_intro.cpp](auto_intro.cpp)
+
+Deduction rules: [auto_rules.cpp](auto_rules.cpp)
+
+Details and usages: [auto_details.cpp](auto_details.cpp)
+
