@@ -11,8 +11,8 @@ For more information :
 
 Lots of new features:
 * Type deduction with `auto` (session 1)
-* For range (session 2)
-* Anonymous functions: lambdas (session 3)
+* For range (session 3)
+* Anonymous functions: lambdas (session 2)
 * Smart pointers: `std::unique_ptr<T>`, `std::shared_ptr<T>` (session 4)
 * _Small features_ (spread over all sessions):
 	* `override` and `final` for virtual classes
