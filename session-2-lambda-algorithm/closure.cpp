@@ -16,7 +16,11 @@ int user_int () {
 }
 
 int main () {
-	std::vector<int> vec{0, 1, 2, 3, 4, 5, 6};
+	// vector with 0,1,2,3,4,5,6
+	std::vector<int> vec;
+	for (int i = 0; i <= 6; ++i)
+		vec.push_back (i);
+
 	std::cout << std::boolalpha;
 
 	// print_vec: print elements of a vector<int>

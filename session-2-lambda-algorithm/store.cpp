@@ -51,7 +51,6 @@ int main () {
 	auto my_interval = interval (42, 90);
 	// [clang autocomplete methods]
 
-
 	// Careful with stateful lambdas stored for later use:
 	auto leaks_local_variables = [] (int k) {
 		// int k is a local variable, destroyed at the end of leaks_local_variables()

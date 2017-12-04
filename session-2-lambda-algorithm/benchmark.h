@@ -1,5 +1,6 @@
 #pragma once
 #include <chrono>
+#include <iostream>
 #include <random>
 #include <string>
 #include <vector>
@@ -22,4 +23,11 @@ inline std::vector<int> make_non_zero_random_vector (std::size_t size) {
 	for (auto & i : vec)
 		i = dis (gen);
 	return vec;
+}
+
+template <typename Predicate> void benchmark_predicate_on_non_zero_random_vector (Predicate pred) {
+	std::vector<int> non_zero = make_non_zero_random_vector (10000);
+	bool r = false;
+	auto s = benchmark_function ([&non_zero, &r, &pred]() { r = pred (non_zero); });
+	std::cout << "bench: " << s << " (r=" << r << ")\n";
 }

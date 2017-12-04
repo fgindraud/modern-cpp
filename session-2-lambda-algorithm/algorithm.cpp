@@ -10,8 +10,8 @@
 template <typename T, typename Show>
 void print_vec (const std::string & s, const std::vector<T> & v, Show show) {
 	std::cout << s << " {";
-	for (auto i : v) {
-		show (std::cout, i);
+	for (auto it = v.begin (); it != v.end (); ++it) {
+		show (std::cout, *it);
 		std::cout << " ";
 	}
 	std::cout << "}\n";
@@ -23,7 +23,12 @@ template <typename T> void print_vec (const std::string & s, const std::vector<T
 
 int main () {
 	// Our guinea-pig
-	auto vec = std::vector<int>{0, 42, -3, 10, 10000};
+	std::vector<int> vec;
+	vec.push_back (0);
+	vec.push_back (42);
+	vec.push_back (-3);
+	vec.push_back (10);
+	vec.push_back (10000);
 	print_vec ("start", vec);
 
 #ifdef SORT
@@ -87,7 +92,7 @@ int main () {
 #endif
 
 #ifdef SEARCHING
-	auto predicate = [] (int i) { return i > 20; };
+	auto predicate = [](int i) { return i > 20; };
 	std::cout << "count: " << std::count_if (vec.begin (), vec.end (), predicate) << "\n";
 	auto it = std::find_if (vec.begin (), vec.end (), predicate);
 	std::cout << "find: " << *it << "\n";
