@@ -23,12 +23,7 @@ template <typename T> void print_vec (const std::string & s, const std::vector<T
 
 int main () {
 	// Our guinea-pig
-	std::vector<int> vec;
-	vec.push_back (0);
-	vec.push_back (42);
-	vec.push_back (-3);
-	vec.push_back (10);
-	vec.push_back (10000);
+	auto vec = std::vector<int>{0, 42, -3, 10, 10000};
 	print_vec ("start", vec);
 
 #ifdef SORT

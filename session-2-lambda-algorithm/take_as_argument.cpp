@@ -40,10 +40,7 @@ template <typename Predicate> bool my_any_of (const std::vector<int> & v, Predic
 int main () {
 	std::cout << std::boolalpha;
 
-	// vec is 1, 2, 3, 4, 5
-	std::vector<int> vec;
-	for (int i = 1; i <= 5; ++i)
-		vec.push_back (i);
+	auto vec = std::vector<int>{1, 2, 3, 4, 5};
 
 	// Stateless
 	std::cout << "my_any_of (is_0) = " << my_any_of (vec, [](int i) { return i == 0; }) << "\n";

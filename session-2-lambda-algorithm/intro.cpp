@@ -7,10 +7,9 @@
 bool has_zero (const std::vector<int> & vec);
 
 int main () {
-	auto with_zero = std::vector<int> (10, 1); // 10x int(1)
-	with_zero[3] = 0;                          // and one zero
-
-	auto no_zero = std::vector<int> (10, 42); // 10x int(42)
+	// initializer_list syntax for containers (session 3)
+	auto with_zero = std::vector<int>{0, 1, 2, 3, 4};
+	auto no_zero = std::vector<int>{1, 2, 3, 4, 5};
 
 	std::cout << std::boolalpha;
 	std::cout << "with_zero: " << has_zero (with_zero) << "\n";
@@ -91,11 +90,13 @@ bool has_zero (const std::vector<int> & vec) {
 	auto is_zero = [](const int & i) { return i == 0; };
 	return std::any_of (vec.begin (), vec.end (), is_zero);
 }
+
 // More useful for complex types:
 #include <string>
 bool has_empty_string (const std::vector<std::string> & vec) {
 	return std::any_of (vec.begin (), vec.end (), [](const std::string & s) { return s.empty (); });
 }
+
 // Mutable refs are allowed too:
 void multiply_by_2 (std::vector<int> & vec) {
 	std::for_each (vec.begin (), vec.end (), [](int & i) { i *= 2; });
