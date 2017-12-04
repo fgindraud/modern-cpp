@@ -46,6 +46,12 @@ C++11 added `std::unordered_set` and `std::unordered_map`, hash table variants o
 Basic map/set API is similar. Small example file: [hash_table.cpp](hash_table.cpp)
 
 ### Sampling from distributions
+C++11 greatly expands the random number generation compared to older C++.
+New functions range from low-level specification of random engines to functions to draw into common distirbutions.
+
+Reference: [cppreference.com](http://en.cppreference.com/w/cpp/numeric/random)
+
+Example file: [random.cpp](random.cpp)
 
 ### Regexp
 
