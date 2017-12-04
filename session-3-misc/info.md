@@ -41,12 +41,27 @@ An improved syntax is available for typedef statements: [typedef.cpp](typedef.cp
 
 ## Standard library
 
+### `emplace`
+Most containers in the standard library now allow to build new elements in place.
+This can be very useful to avoid copies, especially when working with non-copyable objects.
+
+Example file: [emplace.cpp](emplace.cpp)
+
 ### Hash tables
 C++11 added `std::unordered_set` and `std::unordered_map`, hash table variants of `std::set` and `std::map`.
-Basic map/set API is similar. Small example file: [hash_table.cpp](hash_table.cpp)
+Basic map/set API is similar.
+
+Small example file: [hash_table.cpp](hash_table.cpp)
 
 ### Sampling from distributions
+C++11 greatly expands the random number generation compared to older C++.
+New functions range from low-level specification of random engines to functions to draw into common distirbutions.
+
+Reference: [cppreference.com](http://en.cppreference.com/w/cpp/numeric/random)
+
+Example file: [random.cpp](random.cpp)
 
 ### Regexp
+You can now do regular expression directly in C++ without external library!
 
-### emplace
+Reference: [cppreference.com](http://en.cppreference.com/w/cpp/regex)
