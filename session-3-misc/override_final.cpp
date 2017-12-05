@@ -3,6 +3,7 @@
 class IntInterface {
   public:
     virtual int value() const { return -1; };
+    // virtual void set(int) = 0;
 };
 
 class Int : public IntInterface {
@@ -11,6 +12,7 @@ class Int : public IntInterface {
   public:
     explicit Int(int data) : data(data) {}
     int value() { return data; }
+    // void set(int val) { data = val; }
 };
 
 // class Zero : public Int {
