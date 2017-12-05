@@ -15,7 +15,7 @@ Unique pointers, ([`std::unique_ptr<T>`](http://en.cppreference.com/w/cpp/memory
 A unique pointer means "I am the only one responsible for managing this piece of memory".
 Normal pointers can be created from a unique pointer but should never be freed.
 
-Compared to a normal pointer, `std::unique_ptr<T>` has very little overhead (in particular, **no overhead on dereferencing**)
+Compared to a normal pointer, `std::unique_ptr<T>` has very little overhead (in particular, **no overhead on dereferencing**).
 [Details](https://stackoverflow.com/questions/22295665/how-much-is-the-overhead-of-smart-pointers-compared-to-normal-pointers-in-c).
 
 Motivating example: [motiv-unique.cpp](motiv-unique.cpp)
@@ -28,7 +28,9 @@ Minimal working example: [unique_ptr.cpp](unique_ptr.cpp)
 Shared pointers ([`std::shared_ptr<T>`](http://en.cppreference.com/w/cpp/memory/shared_ptr))  are copyable smart pointers that
 free the managed memory when the last copy of the pointer is destroyed.
 They can be useful when managing shared resources or DAG-like structures.
-Be careful though, they are more costly that unique pointers, in particular at creation and destruction
+
+Be careful though, they are more costly that unique pointers, in particular at creation and destruction.
 [Details](https://stackoverflow.com/questions/22295665/how-much-is-the-overhead-of-smart-pointers-compared-to-normal-pointers-in-c).
+Also, cycles of shared pointers can keep each other alive and lead to memory leaks.
 
 Example: [shared.cpp](shared.cpp)

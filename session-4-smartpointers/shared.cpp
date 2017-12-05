@@ -24,4 +24,5 @@ int main() {
     auto second_child = origin.new_child();
     auto grandchild = first_child->new_child();
     second_child->connect_to(grandchild);
+    // grandchild->connect_to(second_child);
 }
