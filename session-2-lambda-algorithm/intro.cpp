@@ -7,24 +7,23 @@
 bool has_zero (const std::vector<int> & vec);
 
 int main () {
-	std::vector<int> with_zero{1, 2, 3, 0, 4, 0};
-	std::vector<int> no_zero{1, 2, 3, 4, 5, 6};
+	// initializer_list syntax for containers (session 3)
+	auto with_zero = std::vector<int>{0, 1, 2, 3, 4};
+	auto no_zero = std::vector<int>{1, 2, 3, 4, 5};
+
 	std::cout << std::boolalpha;
 	std::cout << "with_zero: " << has_zero (with_zero) << "\n";
 	std::cout << "no_zero: " << has_zero (no_zero) << "\n";
 
 	// Small benchmark
-	std::vector<int> non_zero = make_non_zero_random_vector (10000);
-	bool r = false;
-	auto s = benchmark_function ([&non_zero, &r]() { r = has_zero (non_zero); });
-	std::cout << "bench: " << s << " (r=" << r << ")\n";
+	benchmark_predicate_on_non_zero_random_vector (has_zero);
 	return 0;
 }
 
 #ifdef MANUAL
 // C++03 index version
 bool has_zero (const std::vector<int> & vec) {
-	for (int i = 0; i < vec.size (); ++i)
+	for (std::size_t i = 0; i < vec.size (); ++i)
 		if (vec[i] == 0)
 			return true;
 	return false;
@@ -52,16 +51,6 @@ bool has_zero (const std::vector<int> & vec) {
 }
 #endif
 
-#ifdef FOR_RANGE
-// C++11 for-range version
-bool has_zero (const std::vector<int> & vec) {
-	for (auto i : vec)
-		if (i == 0)
-			return true;
-	return false;
-}
-#endif
-
 // Use what is already made for us.
 #include <algorithm>
 
@@ -75,7 +64,7 @@ bool has_zero (const std::vector<int> & vec) {
 }
 #endif
 
-// Syntax:
+// Lambda syntax:
 auto lambda_value = [/* state, see closure.cpp */](/* arguments */) { /* body */ };
 auto lv_without_comments = []() {};
 auto lv_argument_less_shortened = [] {};
@@ -101,11 +90,13 @@ bool has_zero (const std::vector<int> & vec) {
 	auto is_zero = [](const int & i) { return i == 0; };
 	return std::any_of (vec.begin (), vec.end (), is_zero);
 }
+
 // More useful for complex types:
 #include <string>
 bool has_empty_string (const std::vector<std::string> & vec) {
 	return std::any_of (vec.begin (), vec.end (), [](const std::string & s) { return s.empty (); });
 }
+
 // Mutable refs are allowed too:
 void multiply_by_2 (std::vector<int> & vec) {
 	std::for_each (vec.begin (), vec.end (), [](int & i) { i *= 2; });

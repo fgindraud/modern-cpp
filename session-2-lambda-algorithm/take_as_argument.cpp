@@ -8,8 +8,8 @@
 
 #ifdef FUNCTION_POINTER
 bool my_any_of (const std::vector<int> & v, bool (*predicate) (int)) {
-	for (auto i : v)
-		if (predicate (i))
+	for (auto it = v.begin (); it != v.end (); ++it)
+		if (predicate (*it))
 			return true;
 	return false;
 }
@@ -19,8 +19,8 @@ bool my_any_of (const std::vector<int> & v, bool (*predicate) (int)) {
 #ifdef STD_FUNCTION
 #include <functional>
 bool my_any_of (const std::vector<int> & v, std::function<bool(int)> predicate) {
-	for (auto i : v)
-		if (predicate (i))
+	for (auto it = v.begin (); it != v.end (); ++it)
+		if (predicate (*it))
 			return true;
 	return false;
 }
@@ -29,8 +29,8 @@ bool my_any_of (const std::vector<int> & v, std::function<bool(int)> predicate) 
 
 #ifdef TEMPLATE
 template <typename Predicate> bool my_any_of (const std::vector<int> & v, Predicate predicate) {
-	for (auto i : v)
-		if (predicate (i))
+	for (auto it = v.begin (); it != v.end (); ++it)
+		if (predicate (*it))
 			return true;
 	return false;
 }
@@ -39,7 +39,8 @@ template <typename Predicate> bool my_any_of (const std::vector<int> & v, Predic
 
 int main () {
 	std::cout << std::boolalpha;
-	const std::vector<int> vec{1, 2, 3, 4, 5};
+
+	auto vec = std::vector<int>{1, 2, 3, 4, 5};
 
 	// Stateless
 	std::cout << "my_any_of (is_0) = " << my_any_of (vec, [](int i) { return i == 0; }) << "\n";
@@ -50,11 +51,6 @@ int main () {
 	// std::cout << "my_any_of (is_k) = " << my_any_of (vec, [k](int i) { return i == k; }) << "\n";
 
 	// Small benchmark
-	std::vector<int> non_zero = make_non_zero_random_vector (10000);
-	bool r = false;
-	auto s = benchmark_function (
-	    [&non_zero, &r]() { r = my_any_of (non_zero, [](int i) { return i == 0; }); });
-	std::cout << "bench: " << s << " (r=" << r << ")\n";
-
+	benchmark_predicate_on_non_zero_random_vector (my_any_of);
 	return 0;
 }

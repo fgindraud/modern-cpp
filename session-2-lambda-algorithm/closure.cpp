@@ -16,8 +16,9 @@ int user_int () {
 }
 
 int main () {
-	std::vector<int> vec{0, 1, 2, 3, 4, 5, 6};
 	std::cout << std::boolalpha;
+
+	auto vec = std::vector<int>{0, 1, 2, 3, 4, 5, 6};
 
 	// print_vec: print elements of a vector<int>
 	// Defined as a lambda which returns void (no return statement).

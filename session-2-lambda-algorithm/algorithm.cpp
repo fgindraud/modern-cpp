@@ -10,8 +10,8 @@
 template <typename T, typename Show>
 void print_vec (const std::string & s, const std::vector<T> & v, Show show) {
 	std::cout << s << " {";
-	for (auto i : v) {
-		show (std::cout, i);
+	for (auto it = v.begin (); it != v.end (); ++it) {
+		show (std::cout, *it);
 		std::cout << " ";
 	}
 	std::cout << "}\n";
@@ -87,7 +87,7 @@ int main () {
 #endif
 
 #ifdef SEARCHING
-	auto predicate = [] (int i) { return i > 20; };
+	auto predicate = [](int i) { return i > 20; };
 	std::cout << "count: " << std::count_if (vec.begin (), vec.end (), predicate) << "\n";
 	auto it = std::find_if (vec.begin (), vec.end (), predicate);
 	std::cout << "find: " << *it << "\n";

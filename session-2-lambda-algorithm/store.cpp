@@ -22,7 +22,7 @@ int main () {
 
 #ifdef STD_FUNCTION
 	// Still costly, can store anything !
-	using LambdaStoredType = std::function<bool (int)>;
+	using LambdaStoredType = std::function<bool(int)>;
 #endif
 
 #ifdef TEMPLATE
@@ -30,7 +30,7 @@ int main () {
 	// Lambdas types are all different.
 	// -> same problem as FUNCTION_POINTER
 	using LambdaStoredType = decltype (positive); // Fails for positive_strict / interval(i,j)
-	//using LambdaStoredType = decltype (interval (0, 0)); // Fails for positive/positive_strict
+	// using LambdaStoredType = decltype (interval (0, 0)); // Fails for positive/positive_strict
 #endif
 
 	std::vector<LambdaStoredType> constraints;
@@ -39,10 +39,11 @@ int main () {
 	constraints.push_back (interval (0, 10));
 	constraints.push_back (interval (-10, 10));
 
-	for (auto tested : {-1, 0, 1, 42}) {
-		std::cout << tested << ": ";
+	auto tested_values = std::vector<int>{-1, 0, 1, 42};
+	for (auto it = tested_values.begin (); it != tested_values.end (); ++it) {
+		std::cout << *it << ": ";
 		for (auto & constraint : constraints)
-			std::cout << constraint (tested) << " ";
+			std::cout << constraint (*it) << " ";
 		std::cout << "\n";
 	}
 
@@ -51,11 +52,10 @@ int main () {
 	auto my_interval = interval (42, 90);
 	// [clang autocomplete methods]
 
-
 	// Careful with stateful lambdas stored for later use:
-	auto leaks_local_variables = [] (int k) {
+	auto leaks_local_variables = [](int k) {
 		// int k is a local variable, destroyed at the end of leaks_local_variables()
-		return [&k] (int i) { return i == k; }; // return reference to local variable: UB !
+		return [&k](int i) { return i == k; }; // return reference to local variable: UB !
 	};
 
 	return 0;
