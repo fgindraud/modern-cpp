@@ -1,4 +1,4 @@
-#Smart pointers
+# Smart pointers
 
 Smart pointers are special pointers that automatically free the memory they manage under certain conditions.
 By using smart pointers, one can avoid manually using `new` and `delete` in most cases, leading to a much safer memory management.
