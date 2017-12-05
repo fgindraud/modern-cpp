@@ -33,3 +33,9 @@ int main() {
     // vector<int> v2 = {12, 2};
     // display_vec(v2);
 }
+
+// class DefaultValue {
+//     int i{7};
+//     DefaultValue() {}
+//     DefaultValue(int i) : i(i) {}
+// };

@@ -7,6 +7,8 @@ struct StreamWrapper {
     ostream& os{cout};
     // StreamWrapper() = default;
     // StreamWrapper(const StreamWrapper&) = delete;
+// private:
+//     StreamWrapper(const StreamWrapper&) = default;
 };
 
 class Hello {
