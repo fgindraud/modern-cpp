@@ -3,18 +3,19 @@
 #include <vector>
 
 class DAGNode {
-    // std::vector<DAGNode*> children;
-    std::vector<std::shared_ptr<DAGNode>> children;
+    // using ptr_type = std::shared_ptr<DAGNode>;
+    using ptr_type = DAGNode*;
+
+    std::vector<ptr_type> children;
 
   public:
-    std::shared_ptr<DAGNode> new_child() {
-        // DAGNode* new_child() {
-        children.push_back(std::make_shared<DAGNode>());
-        // children.push_back(new DAGNode());
+    ptr_type new_child() {
+        // children.push_back(std::make_shared<DAGNode>());
+        children.push_back(new DAGNode());
         return children.back();
     }
 
-    void connect_to(std::shared_ptr<DAGNode> ptr) { children.push_back(ptr); }
+    void connect_to(ptr_type ptr) { children.push_back(ptr); }
 };
 
 int main() {
