@@ -1,5 +1,5 @@
 #include <iostream>
-// #include <memory>
+#include <memory>
 
 class IntList {
     int value;
@@ -8,7 +8,7 @@ class IntList {
 
   public:
     IntList(int value) : value(value) {}
-    // IntList(int value, std::unique_ptr<IntList>& rest): value(value), rest(std::move(rest)) {}
+    // IntList(int value, std::unique_ptr<IntList>& rest) : value(value), rest(std::move(rest)) {}
     IntList(int value, IntList* rest) : value(value), rest(rest) {}
 
     void insert(int new_value) {
@@ -38,9 +38,12 @@ int main() {
     l.insert(3);
     l.insert(17);
 
-    auto it = &l;
-    while (it != nullptr) {
-        std::cout << it->get_element() << '\n';
-        it = it->next();
+    // IntList l2(l);
+    // IntList l2(2, l.next());
+
+    auto ptr = &l;
+    while (ptr != nullptr) {
+        std::cout << ptr->get_element() << '\n';
+        ptr = ptr->next();
     }
 }

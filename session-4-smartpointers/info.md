@@ -24,4 +24,4 @@ Minimal working example: [unique_ptr.cpp](unique_ptr.cpp)
 
 ## Shared pointers
 
-TODO
+Example: [shared.cpp](shared.cpp)
