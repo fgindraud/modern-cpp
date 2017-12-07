@@ -3,39 +3,55 @@
 #include <list>
 using namespace std;
 
-struct StreamWrapper {
-    ostream& os{cout};
-    // StreamWrapper() = default;
-    // StreamWrapper(const StreamWrapper&) = delete;
+class IntCounter {
+    int data{0};
+
+public:
+    int get() { return ++data; }
+    // IntCounter() = default;
+    // IntCounter(const IntCounter&) = delete;
 // private:
-//     StreamWrapper(const StreamWrapper&) = default;
+//     IntCounter(const IntCounter&) = default;
 };
 
 class Hello {
-    StreamWrapper& sw;
+    IntCounter& counter;
 
 public:
-    Hello(StreamWrapper& sw) : sw(sw) {}
+    Hello(IntCounter& counter) : counter(counter) {}
 
     void hello() {
-        sw.os << "Hello world\n";
+        cout << "Hello " << counter.get() << '\n';
     }
 };
 
 
 int main() {
-    StreamWrapper w;
-    // vector<StreamWrapper> wv;
-    // wv.push_back(StreamWrapper());
+    IntCounter w;
+    // vector<IntCounter> wv;
+    // wv.push_back(IntCounter());
+    // wv.emplace_back();
+    // auto& w = wv.back();
 
-    // list<StreamWrapper> wl;
+    // list<IntCounter> wl;
     // wl.emplace_front();
+    // auto& w = wl.front();
 
     Hello h(w);
-    // Hello h(wv.front());
+    Hello h2(w);
+    h.hello();
+    h2.hello();
 
-    // wv.push_back(StreamWrapper());
+    // wv.push_back(IntCounter());
+    // wv.emplace_back();
     // wl.emplace_front();
 
     h.hello();
+    h2.hello();
 }
+
+// BONUS
+// class MyFancyInterface {
+//     virtual void some_fancy_virtual_thing() = 0;
+//     ~MyFancyInterface() = default;
+// };

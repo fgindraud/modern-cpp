@@ -1,7 +1,6 @@
 #include <iostream>
 
-class IntInterface {
-  public:
+struct IntInterface {
     virtual int value() const { return -1; };
     // virtual void set(int) = 0;
 };

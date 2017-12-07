@@ -12,7 +12,7 @@ Example file: [init_list.cpp](init_list.cpp)
 C++11 introduced a new syntax to go through the elements of a data structure using a for loop.
 This new syntax is a lot shorter, especially combined with the use of auto.
 
-Example files [for_range.cpp](for_range.cpp) (basic example) ans [for_range_custom.cpp](for_range_custom.cpp) (custom data structure)
+Example files [for_range.cpp](for_range.cpp) (basic example), [for_range_ref.cpp](for_range_ref.cpp) and [for_range_custom.cpp](for_range_custom.cpp) (custom data structure)
 
 ### `override` / `final`
 Keywords used to ensure that a method correctly overwrites a virtual method of a parent class.
